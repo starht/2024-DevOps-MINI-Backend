@@ -25,9 +25,15 @@ public class RecommendExerciseController {
         return recommendExerciseService.addRecommendExercise(recommendExerciseDTO);
     }
 
-    @PostMapping("/exercises/update")
-    public RecommendExercise updateExercise(@RequestBody RecommendExerciseDTO recommendExerciseDTO) {
-        return recommendExerciseService.updateRecommendExercise(recommendExerciseDTO);
+    @PutMapping("/exercises/update")
+    public RecommendExercise updateExercise(@RequestParam("exerciseListId") int exerciseListId, @RequestBody RecommendExerciseDTO recommendExerciseDTO) {
+        RecommendExercise recommendExercise = new RecommendExercise(
+                exerciseListId,
+                recommendExerciseDTO.getExerciseName(),
+                recommendExerciseDTO.getKcal(),
+                recommendExerciseDTO.getYoutubeId(),
+                recommendExerciseDTO.getPicture());
+        return recommendExerciseService.updateRecommendExercise(recommendExercise);
     }
 
     @DeleteMapping("/exercises/delete")

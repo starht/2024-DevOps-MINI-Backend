@@ -24,16 +24,16 @@ public class RecommendExerciseService {
         return recommendExerciseRepository.findById(exerciseListId).get();
     }
     @Transactional
-    public RecommendExercise updateRecommendExercise(RecommendExerciseDTO updatedRecommendExerciseDto) {
-        RecommendExercise existingRecommendExer = recommendExerciseRepository.findById(updatedRecommendExerciseDto.getExerciseListId()).orElse(null);
+    public RecommendExercise updateRecommendExercise(RecommendExercise updatedRecommendExercise) {
+        RecommendExercise existingRecommendExer = recommendExerciseRepository.findById(updatedRecommendExercise.getExerciseListId()).orElse(null);
 
         if (existingRecommendExer == null) {
-            throw new RuntimeException("추천 운동을 찾을 수 없습니다: " + updatedRecommendExerciseDto.getExerciseListId());
+            throw new RuntimeException("추천 운동을 찾을 수 없습니다: " + updatedRecommendExercise.getExerciseListId());
         }
 
-        existingRecommendExer.setKcal(updatedRecommendExerciseDto.getKcal());
-        existingRecommendExer.setPicture(updatedRecommendExerciseDto.getPicture());
-        existingRecommendExer.setYoutubeId(updatedRecommendExerciseDto.getYoutubeId());
+        existingRecommendExer.setKcal(updatedRecommendExercise.getKcal());
+        existingRecommendExer.setPicture(updatedRecommendExercise.getPicture());
+        existingRecommendExer.setYoutubeId(updatedRecommendExercise.getYoutubeId());
         return recommendExerciseRepository.save(existingRecommendExer);
     }
 
