@@ -18,6 +18,10 @@ public class RecommendFoodService {
     return recommendFoodRepository.findAll();
   }
 
+  public RecommendFood getRecommendFoodById(int foodListId) {
+    return recommendFoodRepository.findById(foodListId).get();
+  }
+
   @Transactional
   public RecommendFood addRecommendFood(RecommendFood recommendFood) {
     return recommendFoodRepository.save(recommendFood);
@@ -41,4 +45,5 @@ public class RecommendFoodService {
   public void deleteRecommendFoodById(int recommendFoodId) {
     recommendFoodRepository.deleteById(recommendFoodId);
   }
+
 }
