@@ -22,4 +22,10 @@ public class RecommendFood {
 
   @Column(length = 100)
   private String picture;
+
+  public RecommendFood(String foodName, float kcal, String picture) {
+    this.foodName = foodName;
+    this.kcal = kcal;
+    this.picture = picture;
+  }
 }
