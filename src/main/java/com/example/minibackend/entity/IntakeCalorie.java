@@ -16,8 +16,6 @@ import java.util.List;
 public class IntakeCalorie {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
-
   private int intakeId;
 
   @Column(nullable = false)
