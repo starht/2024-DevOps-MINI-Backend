@@ -15,8 +15,6 @@ import java.time.LocalDate;
 public class BurnCalorie {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
-
   private int burnId;
 
   @Column(nullable = false)

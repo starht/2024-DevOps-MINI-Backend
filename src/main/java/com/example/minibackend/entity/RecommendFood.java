@@ -12,15 +12,13 @@ import lombok.NoArgsConstructor;
 public class RecommendFood {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
-
   private int foodListId;
 
   @Column(length = 20, nullable = false)
   private String foodName;
 
   @Column(nullable = false)
-  private int kcal;
+  private float kcal;
 
   @Column(length = 100)
   private String picture;
