@@ -16,4 +16,15 @@ public class User {
   
 
 
+  @Column(length=20, unique=true, nullable=false)
+  private String userId;
+
+  @Column(length=20, nullable=false)
+  private String password;
+
+  @Column(length=10, nullable=false)
+  private String name;
+
+  private float bmi;
+
 }

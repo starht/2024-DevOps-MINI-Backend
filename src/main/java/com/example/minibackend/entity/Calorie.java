@@ -1,10 +1,6 @@
 package com.example.minibackend.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotNull;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -15,14 +11,27 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Calorie {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
-    private int cal_id;
+    private int id;
 
-    private int monthunit;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name="user_id")
+    private User user;
 
-    private int goalkg;
+    private int monthUnit;
 
+    private int goalKg;
+
+    private float bmr;
+
+    private float amr;
+
+    private float tdee;
+
+    private float eatNeeded;
+
+    private float workoutNeeded;
 
 }

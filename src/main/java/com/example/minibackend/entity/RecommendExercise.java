@@ -6,23 +6,25 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 public class RecommendExercise {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int id;
 
-    private int exerciseListId;
-    @Column(length = 20, nullable = false)
-    private String exerciseName;
+  private int exerciseListId;
 
-    private int kcal;
+  @Column(length = 20, nullable = false)
+  private String exerciseName;
 
-    @Column(length = 50,nullable = false)
-    private String youtubeId;
+  @Column(nullable = false)
+  private int kcal;
 
-    @Column(length = 100)
-    private String picture;
+  @Column(length = 50, nullable = false)
+  private String youtubeId;
+
+  @Column(length = 100)
+  private String picture;
 }
