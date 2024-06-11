@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Calorie {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
