@@ -25,4 +25,7 @@ public class User {
 
   private float bmi;
 
+  public void setBmi(float bmi) {
+    this.bmi = bmi;
+  }
 }
