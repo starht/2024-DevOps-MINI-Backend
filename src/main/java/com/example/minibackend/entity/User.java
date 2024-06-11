@@ -28,4 +28,8 @@ public class User {
   public void setBmi(float bmi) {
     this.bmi = bmi;
   }
+
+  public void setUserId(String userId) {
+    this.userId = userId;
+  }
 }

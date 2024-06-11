@@ -34,4 +34,16 @@ public class Calorie {
 
     private float workoutNeeded;
 
+    public Calorie(int id, String userId, int monthUnit, int goalKg, float bmr, float amr, float tdee, float eatNeeded, float workoutNeeded) {
+        this.id = id;
+        this.user = new User();
+        this.user.setUserId(userId);
+        this.monthUnit = monthUnit;
+        this.goalKg = goalKg;
+        this.bmr = bmr;
+        this.amr = amr;
+        this.tdee = tdee;
+        this.eatNeeded = eatNeeded;
+        this.workoutNeeded = workoutNeeded;
+    }
 }
