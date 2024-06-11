@@ -1,5 +1,6 @@
 package com.example.minibackend.service;
 
+import com.example.minibackend.dto.UserDTO;
 import com.example.minibackend.entity.User;
 import com.example.minibackend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,21 +24,17 @@ public class UserService {
   }
 
   @Transactional
-  public User addUser(User user) {
+  public User addUser(UserDTO userDTO) {
+    User user = new User(0,userDTO.getUserId(), userDTO.getPassword(), userDTO.getName(), userDTO.getBmi());
     return userRepository.save(user);
   }
 
   @Transactional
-  public User updateUser(User updatedUser) {
-    User existingUser = userRepository.findById(updatedUser.getId()).orElse(null);
+  public User updateUser(UserDTO updatedUserDTO) {
+    User user = userRepository.findById(updatedUserDTO.getId()).get();
+    user.setBmi(updatedUserDTO.getBmi());
 
-    if (existingUser == null) {
-      throw new RuntimeException("사용자를 찾을 수 없습니다: " + updatedUser.getId());
-    }
-
-    existingUser.setBmi(existingUser.getBmi());
-
-  return userRepository.save(existingUser);
+  return userRepository.save(user);
   }
 
   @Transactional

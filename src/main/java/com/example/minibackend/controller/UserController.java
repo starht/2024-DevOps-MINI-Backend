@@ -1,12 +1,10 @@
 package com.example.minibackend.controller;
 
+import com.example.minibackend.dto.UserDTO;
 import com.example.minibackend.entity.User;
 import com.example.minibackend.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,5 +24,21 @@ public class UserController {
         return userService.getUserById(id);
     }
 
+    @PostMapping("/add")
+    public User addUser(@RequestBody User user) {
+        UserDTO userDTO = new UserDTO(0,user.getUserId(), user.getPassword(), user.getName(), user.getBmi());
+        return
+                userService.addUser(userDTO);
+    }
 
+    @PutMapping("/update")
+    public User updateUser(@RequestBody UserDTO userDTO) {
+        User updatedUser = userService.updateUser(userDTO);
+        return updatedUser;
+    }
+
+    @DeleteMapping("/delete")
+    public void deleteUser(@RequestBody UserDTO userDTO) {
+        userService.deleteUserById(userDTO.getId());
+    }
 }
