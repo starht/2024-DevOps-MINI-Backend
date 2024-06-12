@@ -32,4 +32,13 @@ public class IntakeCalorie {
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinColumn(name="user_id")
   private User user;
+
+  public IntakeCalorie(LocalDate date, int breakfast, int lunch, int dinner, int snack, User user) {
+    this.date = date;
+    this.breakfast = breakfast;
+    this.lunch = lunch;
+    this.dinner = dinner;
+    this.snack = snack;
+    this.user = user;
+  }
 }
