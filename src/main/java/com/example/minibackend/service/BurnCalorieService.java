@@ -38,4 +38,36 @@ public class BurnCalorieService {
         }
     }
 
+    @Transactional
+    public BurnCalorie addBurnCalorie(BurnCalorieDTO burnCalorieDTO) {
+        Optional<User> byUserId = userRepository.findByUserId(burnCalorieDTO.getUserId());
+        if (byUserId.isPresent()) {
+            BurnCalorie burnCalorie = new BurnCalorie();
+            burnCalorie.setBurnId(burnCalorieDTO.getBurnId());
+            burnCalorie.setDate(LocalDate.now());
+            burnCalorie.setCalorie(burnCalorieDTO.getCalorie());
+            burnCalorie.setUser(byUserId.get());
+            return burnCalorieRepository.save(burnCalorie);
+        }else {
+            throw new RuntimeException("Cannot add: " + burnCalorieDTO.getUserId());
+        }
+    }
+
+    public BurnCalorieDTO convertToDTO(BurnCalorie burnCalorie) {
+        return new BurnCalorieDTO(
+                burnCalorie.getBurnId(),
+                burnCalorie.getDate(),
+                burnCalorie.getCalorie(),
+                burnCalorie.getUser().getUserId()
+        );
+    }
+
+//    @Transactional
+//    public BurnCalorie updateBurnCalorie(BurnCalorieDTO burnCalorieDTO) {
+//        Optional<User> byUserId = userRepository.findByUserId(burnCalorieDTO.getUserId());
+//    }
+    @Transactional
+    public void deleteBurnCalorie(int id) {
+        burnCalorieRepository.deleteById(id);
+    }
 }

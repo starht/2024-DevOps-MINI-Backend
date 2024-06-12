@@ -17,13 +17,14 @@ public class BurnCalorieController {
         return burnCalorieService.findByUserId(userId);
     }
 
-//    @PostMapping("/add")
-//    public BurnCalorie addBurnCalorie(@RequestBody BurnCalorieDTO burnCalorieDTO) {
-//        return burnCalorieService.addBurnCalorie(burnCalorieDTO);
-//    }
+    @PostMapping("/add")
+    public BurnCalorieDTO addBurnCalorie(@RequestBody BurnCalorieDTO burnCalorieDTO) {
+        BurnCalorie burnCalorie = burnCalorieService.addBurnCalorie(burnCalorieDTO);
+        return burnCalorieService.convertToDTO(burnCalorie);
+    }
 
-//    @DeleteMapping("/delete/{burnId}")
-//    public void deleteBurnCalorie(@PathVariable("burnId")int burnId) {
-//        burnCalorieService.deleteBurnCalorie(burnId);
-//    }
+    @DeleteMapping("/delete/{burnId}")
+    public void deleteBurnCalorie(@PathVariable("burnId")int burnId) {
+        burnCalorieService.deleteBurnCalorie(burnId);
+    }
 }
