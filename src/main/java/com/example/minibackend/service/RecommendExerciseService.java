@@ -20,7 +20,7 @@ public class RecommendExerciseService {
         return recommendExerciseRepository.findAll();
     }
 
-    public RecommendExercise getReById(int exerciseListId) {
+    public RecommendExercise getRecommendExerciseById(int exerciseListId) {
         return recommendExerciseRepository.findById(exerciseListId).get();
     }
     @Transactional

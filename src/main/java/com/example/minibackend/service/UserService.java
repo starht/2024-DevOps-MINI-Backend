@@ -30,7 +30,7 @@ public class UserService {
 
   @Transactional
   public User addUser(UserDTO userDTO) {
-    User user = new User(0,userDTO.getUserId(), userDTO.getPassword(), userDTO.getName(), userDTO.getBmi());
+    User user = new User(0, userDTO.getUserId(), userDTO.getPassword(), userDTO.getName(), userDTO.getBmi());
     return userRepository.save(user);
   }
 
@@ -39,7 +39,7 @@ public class UserService {
     User user = userRepository.findById(updatedUserDTO.getId()).get();
     user.setBmi(updatedUserDTO.getBmi());
 
-  return userRepository.save(user);
+    return userRepository.save(user);
   }
 
   @Transactional
