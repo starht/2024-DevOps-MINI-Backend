@@ -3,7 +3,6 @@ package com.example.minibackend.entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
@@ -24,6 +23,13 @@ public class BurnCalorie {
 
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinColumn(name="user_id")
-  private User user;
+  private User user  ;
 
+  public BurnCalorie(int burnId, LocalDate date, int calorie, String userId) {
+    this.burnId = burnId;
+    this.date = date;
+    this.calorie = calorie;
+    this.user = new User();
+    this.user.setUserId(userId);
+  }
 }
