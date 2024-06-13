@@ -1,6 +1,7 @@
 package com.example.minibackend.controller;
 
 import com.example.minibackend.dto.IntakeCalorie.IntakeCalorieDTO;
+import com.example.minibackend.dto.IntakeCalorie.IntakeCalorieUpdateDTO;
 import com.example.minibackend.entity.IntakeCalorie;
 import com.example.minibackend.entity.User;
 import com.example.minibackend.service.IntakeCalorieService;
@@ -77,20 +78,17 @@ public class IntakeCalorieController {
   }
 
   @PutMapping("/update")
-  public IntakeCalorieDTO updateIntakeCalorie(@RequestBody IntakeCalorieDTO intakeCalorieDTO) {
-    User user = userService.findByUserId(intakeCalorieDTO.getUserId())
-        .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다: " + intakeCalorieDTO.getUserId()));
+  public IntakeCalorieDTO updateIntakeCalorie(@RequestParam("intakeId") int intakeId, @RequestBody IntakeCalorieUpdateDTO intakeCalorieUpdateDTO) {
+    IntakeCalorie intakeCalorie = intakeCalorieService.findById(intakeId)
+        .orElseThrow(() -> new RuntimeException("칼로리 섭취 정보를 찾을 수 없습니다: " + intakeId));
 
-    IntakeCalorie intakeCalorie = new IntakeCalorie(
-        intakeCalorieDTO.getIntakeId(),
-        intakeCalorieDTO.getDate(),
-        intakeCalorieDTO.getBreakfast(),
-        intakeCalorieDTO.getLunch(),
-        intakeCalorieDTO.getDinner(),
-        intakeCalorieDTO.getSnack(),
-        user);
+    intakeCalorie.setBreakfast(intakeCalorieUpdateDTO.getBreakfast());
+    intakeCalorie.setLunch(intakeCalorieUpdateDTO.getLunch());
+    intakeCalorie.setDinner(intakeCalorieUpdateDTO.getDinner());
+    intakeCalorie.setSnack(intakeCalorieUpdateDTO.getSnack());
 
     IntakeCalorie updatedIntakeCalorie = intakeCalorieService.updateIntakeCalorie(intakeCalorie);
+
     return new IntakeCalorieDTO(
         updatedIntakeCalorie.getIntakeId(),
         updatedIntakeCalorie.getUser().getUserId(),

@@ -40,6 +40,14 @@ public class IntakeCalorieService {
     throw new RuntimeException("사용자를 찾을 수 없습니다: " + userId);
   }
 
+  public Optional<IntakeCalorie> findById(int intakeId) {
+    Optional<IntakeCalorie> intakeCalorie = intakeCalorieRepository.findById(intakeId);
+    if (intakeCalorie.isPresent()) {
+      Hibernate.initialize(intakeCalorie.get().getUser());
+    }
+    return intakeCalorie;
+  }
+
   @Transactional
   public IntakeCalorie addIntakeCalorie(IntakeCalorie intakeCalorie) {
     Optional<User> userOptional = userRepository.findByUserId(intakeCalorie.getUser().getUserId());
@@ -68,6 +76,7 @@ public class IntakeCalorieService {
     existingIntakeCalorie.setSnack(intakeCalorie.getSnack());
 
     Optional<User> userOpt = userRepository.findByUserId(intakeCalorie.getUser().getUserId());
+
     if (userOpt.isPresent()) {
       existingIntakeCalorie.setUser(userOpt.get());
     } else {
