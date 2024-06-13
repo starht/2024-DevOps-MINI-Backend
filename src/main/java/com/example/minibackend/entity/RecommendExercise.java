@@ -25,4 +25,11 @@ public class RecommendExercise {
 
   @Column(length = 100)
   private String picture;
+
+  public RecommendExercise(String exerciseName, float kcal, String youtubeId, String picture) {
+    this.exerciseName = exerciseName;
+    this.kcal = kcal;
+    this.youtubeId = youtubeId;
+    this.picture = picture;
+  }
 }
