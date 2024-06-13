@@ -56,7 +56,7 @@ public class BurnCalorieService {
       burnCalorie.setCalorie(burnCalorie.getCalorie());
       return burnCalorieRepository.save(burnCalorie);
     }else {
-      throw new RuntimeException("Cannot add: " + burnCalorie.getUser().getUserId());
+      throw new RuntimeException("사용자를 찾을 수 없습니다: " + burnCalorie.getUser().getUserId());
     }
   }
 
