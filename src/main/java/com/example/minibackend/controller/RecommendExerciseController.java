@@ -9,23 +9,23 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/recommend")
+@RequestMapping("/recommend/exercises")
 public class RecommendExerciseController {
     @Autowired
     RecommendExerciseService recommendExerciseService;
 
-    @GetMapping("/exercises")
+    @GetMapping
     public List<RecommendExercise> getExercises() {
         return recommendExerciseService.getAllRecommendExercise();
     }
 
-    @PostMapping("/exercises/add")
+    @PostMapping("/add")
     public RecommendExercise addExercise(@RequestBody RecommendExerciseDTO recommendExerciseDTO) {
 
         return recommendExerciseService.addRecommendExercise(recommendExerciseDTO);
     }
 
-    @PutMapping("/exercises/update")
+    @PutMapping("/update")
     public RecommendExercise updateExercise(@RequestParam("exerciseListId") int exerciseListId, @RequestBody RecommendExerciseDTO recommendExerciseDTO) {
         RecommendExercise recommendExercise = new RecommendExercise(
                 exerciseListId,
@@ -36,9 +36,9 @@ public class RecommendExerciseController {
         return recommendExerciseService.updateRecommendExercise(recommendExercise);
     }
 
-    @DeleteMapping("/exercises/delete")
-    public void deleteExercise(@RequestBody RecommendExerciseDTO recommendExerciseDTO) {
-        recommendExerciseService.delRecommendExercise(recommendExerciseDTO.getExerciseListId());
+    @DeleteMapping("/delete")
+    public void deleteExercise(@RequestParam("exerciseListId") int exerciseListId) {
+        recommendExerciseService.deleteRecommendExerciseById(exerciseListId);
     }
 
 }

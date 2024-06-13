@@ -38,7 +38,7 @@ public class RecommendExerciseService {
     }
 
     @Transactional
-    public void delRecommendExercise(int exerciseListId) {
+    public void deleteRecommendExerciseById(int exerciseListId) {
         recommendExerciseRepository.deleteById(exerciseListId);
     }
 
