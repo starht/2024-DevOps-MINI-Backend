@@ -27,20 +27,31 @@ public class IntakeCalorieService {
     return intakeCalories;
   }
 
-  public IntakeCalorie getIntakeCalorieByUser(String userId) {
+  public List<IntakeCalorie> getIntakeCalorieByUser(String userId) {
     Optional<User> userOpt = userRepository.findByUserId(userId);
     if (userOpt.isPresent()) {
-      IntakeCalorie intakeCalorie = intakeCalorieRepository.findByUser(userOpt.get());
-      Hibernate.initialize(intakeCalorie.getUser());
-      return intakeCalorie;
+      User user = userOpt.get();
+      List<IntakeCalorie> intakeCalories = intakeCalorieRepository.findAllByUser(user);
+      for (IntakeCalorie intakeCalorie : intakeCalories) {
+        Hibernate.initialize(intakeCalorie.getUser());
+      }
+      return intakeCalories;
     }
     throw new RuntimeException("사용자를 찾을 수 없습니다: " + userId);
   }
 
   @Transactional
   public IntakeCalorie addIntakeCalorie(IntakeCalorie intakeCalorie) {
-    IntakeCalorie savedIntakeCalorie = intakeCalorieRepository.save(intakeCalorie);
-    return savedIntakeCalorie;
+    Optional<User> userOptional = userRepository.findByUserId(intakeCalorie.getUser().getUserId());
+    if (userOptional.isPresent()) {
+      intakeCalorie.setUser(userOptional.get());
+      intakeCalorie.setBreakfast(intakeCalorie.getBreakfast());
+      intakeCalorie.setLunch(intakeCalorie.getLunch());
+      intakeCalorie.setDinner(intakeCalorie.getDinner());
+      intakeCalorie.setSnack(intakeCalorie.getSnack());
+      return intakeCalorieRepository.save(intakeCalorie);
+    }
+    throw new RuntimeException("사용자를 찾을 수 없습니다: " + intakeCalorie.getUser().getUserId());
   }
 
   @Transactional

@@ -11,11 +11,10 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class IntakeCalorieDTO {
   private int intakeId;
+  private String userId;
   private LocalDate date;
   private int breakfast;
   private int lunch;
   private int dinner;
   private int snack;
-
-  private String userId;
 }
