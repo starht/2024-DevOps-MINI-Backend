@@ -1,6 +1,7 @@
 package com.example.minibackend.controller;
 
 import com.example.minibackend.dto.RecommendFood.RecommendFoodDTO;
+import com.example.minibackend.dto.RecommendFood.RecommendFoodUpdateDTO;
 import com.example.minibackend.entity.RecommendFood;
 import com.example.minibackend.service.RecommendFoodService;
 import lombok.RequiredArgsConstructor;
@@ -42,18 +43,21 @@ public class RecommendFoodController {
   }
 
   @PutMapping("/update")
-  public RecommendFoodDTO updateRecommendFood(@RequestParam("foodListId") int foodListId, @RequestBody RecommendFoodDTO recommendFoodDTO) {
-    RecommendFood updatedRecommendFood = new RecommendFood(
-            foodListId,
-            recommendFoodDTO.getFoodName(),
-            recommendFoodDTO.getKcal(),
-            recommendFoodDTO.getPicture());
-    RecommendFood savedRecommendFood = recommendFoodService.updateRecommendFood(updatedRecommendFood);
+  public RecommendFoodDTO updateRecommendFood(@RequestParam("foodListId") int foodListId, @RequestBody RecommendFoodUpdateDTO recommendFoodUpdateDTO) {
+    RecommendFood recommendFood = recommendFoodService.findById(foodListId)
+            .orElseThrow(() -> new RuntimeException("추천 음식을 찾을 수 없습니다: " + foodListId));
+
+    recommendFood.setKcal(recommendFoodUpdateDTO.getKcal());
+    recommendFood.setPicture(recommendFoodUpdateDTO.getPicture());
+
+    RecommendFood updatedRecommendFood = recommendFoodService.updateRecommendFood(recommendFood);
+
     return new RecommendFoodDTO(
-            savedRecommendFood.getFoodListId(),
-            savedRecommendFood.getFoodName(),
-            savedRecommendFood.getKcal(),
-            savedRecommendFood.getPicture());
+        updatedRecommendFood.getFoodListId(),
+        updatedRecommendFood.getFoodName(),
+        updatedRecommendFood.getKcal(),
+        updatedRecommendFood.getPicture()
+    );
   }
 
   @DeleteMapping("/delete")
