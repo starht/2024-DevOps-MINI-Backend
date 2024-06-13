@@ -67,5 +67,10 @@ public class CalorieController {
         savedCalorie.getWorkoutNeeded());
   }
 
+  @DeleteMapping("/delete")
+  public void deleteCalorie(@RequestParam("calorieId") int calorieId) {
+    calorieService.deleteCalorieById(calorieId);
+  }
+
 
 }

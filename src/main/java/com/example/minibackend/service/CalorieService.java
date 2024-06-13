@@ -71,6 +71,13 @@ public class CalorieService {
     }
   }
 
+  @Transactional
+  public void deleteCalorieById(int calorieId) {
+    Calorie calorie = calorieRepository.findById(calorieId)
+        .orElseThrow(() -> new RuntimeException("칼로리 정보를 찾을 수 없습니다: " + calorieId));
 
+    calorie.setUser(null);
+    calorieRepository.delete(calorie);
+  }
 
 }
