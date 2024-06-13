@@ -63,7 +63,8 @@ public class IntakeCalorieController {
         intakeCalorieDTO.getLunch(),
         intakeCalorieDTO.getDinner(),
         intakeCalorieDTO.getSnack(),
-        user);
+        user
+    );
     IntakeCalorie savedIntakeCalorie = intakeCalorieService.addIntakeCalorie(intakeCalorie);
     return new IntakeCalorieDTO(
         savedIntakeCalorie.getIntakeId(),
