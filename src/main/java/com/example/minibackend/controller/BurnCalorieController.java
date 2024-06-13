@@ -64,26 +64,6 @@ public class BurnCalorieController {
     );
   }
 
-//  @PutMapping("/update")
-//  public BurnCalorieDTO updateBurnCalorie(@RequestBody BurnCalorieDTO burnCalorieDTO) {
-//    User user = userService.findByUserId(burnCalorieDTO.getUserId())
-//        .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다: " + burnCalorieDTO.getUserId()));
-//
-//    BurnCalorie burnCalorie = new BurnCalorie(
-//        burnCalorieDTO.getBurnId(),
-//        burnCalorieDTO.getBurnDate(),
-//        burnCalorieDTO.getCalorie(),
-//        user
-//    );
-//    BurnCalorie burnCalorie1 = burnCalorieService.updateBurnCalorie(burnCalorie);
-//    return new BurnCalorieDTO(
-//        burnCalorie1.getBurnId(),
-//        burnCalorie1.getUser().getUserId(),
-//        burnCalorie1.getDate(),
-//        burnCalorie1.getCalorie()
-//    );
-//  }
-
   @PutMapping("/update")
   public BurnCalorieDTO updateBurnCalorie(@RequestParam("burnId") int burnId, @RequestBody BurnCalorieUpdateDTO burnCalorieUpdateDTO) {
     BurnCalorie burnCalorie = burnCalorieService.findById(burnId)
