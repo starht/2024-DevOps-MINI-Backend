@@ -1,6 +1,7 @@
 package com.example.minibackend.controller;
 
 import com.example.minibackend.dto.User.UserDTO;
+import com.example.minibackend.dto.User.UserUpdateDTO;
 import com.example.minibackend.entity.User;
 import com.example.minibackend.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -32,9 +33,20 @@ public class UserController {
   }
 
   @PutMapping("/update")
-  public User updateUser(@RequestBody UserDTO userDTO) {
-    User updatedUser = userService.updateUser(userDTO);
-    return updatedUser;
+  public UserDTO updateUser(@RequestParam("id") int id, @RequestBody UserUpdateDTO userUpdateDTO) {
+    User user = userService.getUserById(id);
+
+    user.setBmi(userUpdateDTO.getBmi());
+
+    User updatedUser = userService.updateUser(user);
+
+    return new UserDTO(
+        updatedUser.getId(),
+        updatedUser.getUserId(),
+        updatedUser.getPassword(),
+        updatedUser.getName(),
+        updatedUser.getBmi()
+    );
   }
 
   @DeleteMapping("/delete")
