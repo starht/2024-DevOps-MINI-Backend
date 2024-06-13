@@ -9,4 +9,5 @@ import java.util.List;
 public interface BurnCalorieRepository extends JpaRepository<BurnCalorie, Integer> {
     BurnCalorie findByUser(User user);
     List<BurnCalorie> findAllByUser(User user);
+    void deleteAllByUser(User user);
 }

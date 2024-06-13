@@ -3,7 +3,7 @@ package com.example.minibackend.service;
 import com.example.minibackend.dto.User.UserDTO;
 import com.example.minibackend.dto.User.UserUpdateDTO;
 import com.example.minibackend.entity.User;
-import com.example.minibackend.repository.UserRepository;
+import com.example.minibackend.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +16,11 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserService {
   private final UserRepository userRepository;
+  private final FavoriteFoodRepository favoriteFoodRepository;
+  private final FavoriteExerciseRepository favoriteExerciseRepository;
+  private final IntakeCalorieRepository intakeCalorieRepository;
+  private final BurnCalorieRepository burnCalorieRepository;
+  private final CalorieRepository calorieRepository;
 
   public List<User> getAllUsers() {
     return userRepository.findAll();
@@ -50,7 +55,16 @@ public class UserService {
 
   @Transactional
   public void deleteUserById(int userId) {
-    userRepository.deleteById(userId);
+    User user = userRepository.findById(userId)
+        .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다: " + userId));
+
+    favoriteFoodRepository.deleteAllByUser(user);
+    favoriteExerciseRepository.deleteAllByUser(user);
+    intakeCalorieRepository.deleteAllByUser(user);
+    burnCalorieRepository.deleteAllByUser(user);
+    calorieRepository.deleteAllByUser(user);
+
+    userRepository.delete(user);
   }
 
 }

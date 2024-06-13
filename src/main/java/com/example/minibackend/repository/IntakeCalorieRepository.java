@@ -9,4 +9,5 @@ import java.util.List;
 public interface IntakeCalorieRepository extends JpaRepository<IntakeCalorie, Integer> {
   IntakeCalorie findByUser(User user);
   List<IntakeCalorie> findAllByUser(User user);
+  void deleteAllByUser(User user);
 }

@@ -6,4 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CalorieRepository extends JpaRepository<Calorie, Integer> {
   Calorie findByUser(User user);
+  void deleteAllByUser(User user);
 }

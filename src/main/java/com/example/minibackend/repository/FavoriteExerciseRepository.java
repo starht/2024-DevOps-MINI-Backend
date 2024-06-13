@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface FavoriteExerciseRepository extends JpaRepository<FavoriteExercise, Integer> {
   FavoriteExercise findByUser(User user);
-
   List<FavoriteExercise> findAllByUser(User user);
+  void deleteAllByUser(User user);
 }
