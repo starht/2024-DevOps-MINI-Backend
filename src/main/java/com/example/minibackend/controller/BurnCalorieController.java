@@ -1,6 +1,7 @@
 package com.example.minibackend.controller;
 
 import com.example.minibackend.dto.BurnCalorie.BurnCalorieDTO;
+import com.example.minibackend.dto.BurnCalorie.BurnCalorieUpdateDTO;
 import com.example.minibackend.entity.BurnCalorie;
 import com.example.minibackend.entity.User;
 import com.example.minibackend.service.BurnCalorieService;
@@ -63,23 +64,39 @@ public class BurnCalorieController {
     );
   }
 
-  @PutMapping("/update")
-  public BurnCalorieDTO updateBurnCalorie(@RequestBody BurnCalorieDTO burnCalorieDTO) {
-    User user = userService.findByUserId(burnCalorieDTO.getUserId())
-        .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다: " + burnCalorieDTO.getUserId()));
+//  @PutMapping("/update")
+//  public BurnCalorieDTO updateBurnCalorie(@RequestBody BurnCalorieDTO burnCalorieDTO) {
+//    User user = userService.findByUserId(burnCalorieDTO.getUserId())
+//        .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다: " + burnCalorieDTO.getUserId()));
+//
+//    BurnCalorie burnCalorie = new BurnCalorie(
+//        burnCalorieDTO.getBurnId(),
+//        burnCalorieDTO.getBurnDate(),
+//        burnCalorieDTO.getCalorie(),
+//        user
+//    );
+//    BurnCalorie burnCalorie1 = burnCalorieService.updateBurnCalorie(burnCalorie);
+//    return new BurnCalorieDTO(
+//        burnCalorie1.getBurnId(),
+//        burnCalorie1.getUser().getUserId(),
+//        burnCalorie1.getDate(),
+//        burnCalorie1.getCalorie()
+//    );
+//  }
 
-    BurnCalorie burnCalorie = new BurnCalorie(
-        burnCalorieDTO.getBurnId(),
-        burnCalorieDTO.getBurnDate(),
-        burnCalorieDTO.getCalorie(),
-        user
-    );
-    BurnCalorie burnCalorie1 = burnCalorieService.updateBurnCalorie(burnCalorie);
+  @PutMapping("/update")
+  public BurnCalorieDTO updateBurnCalorie(@RequestParam("burnId") int burnId, @RequestBody BurnCalorieUpdateDTO burnCalorieUpdateDTO) {
+    BurnCalorie burnCalorie = burnCalorieService.findById(burnId)
+        .orElseThrow(() -> new RuntimeException("칼로리 소모 정보를 찾을 수 없습니다: " + burnId));
+
+    burnCalorie.setCalorie(burnCalorieUpdateDTO.getCalorie());
+    BurnCalorie updatedBurnCalorie = burnCalorieService.updateBurnCalorie(burnCalorie);
+
     return new BurnCalorieDTO(
-        burnCalorie1.getBurnId(),
-        burnCalorie1.getUser().getUserId(),
-        burnCalorie1.getDate(),
-        burnCalorie1.getCalorie()
+        updatedBurnCalorie.getBurnId(),
+        updatedBurnCalorie.getUser().getUserId(),
+        updatedBurnCalorie.getDate(),
+        updatedBurnCalorie.getCalorie()
     );
   }
 

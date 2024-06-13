@@ -40,6 +40,14 @@ public class BurnCalorieService {
     throw new RuntimeException("사용자를 찾을 수 없습니다: " + userId);
   }
 
+  public Optional<BurnCalorie> findById(int burnId) {
+    Optional<BurnCalorie> burnCalorie = burnCalorieRepository.findById(burnId);
+    if (burnCalorie.isPresent()) {
+      Hibernate.initialize(burnCalorie.get().getUser());
+    }
+    return burnCalorie;
+  }
+
   @Transactional
   public BurnCalorie addBurnCalorie(BurnCalorie burnCalorie) {
     Optional<User> userOptional = userRepository.findByUserId(burnCalorie.getUser().getUserId());
@@ -80,4 +88,5 @@ public class BurnCalorieService {
     burnCalorie.setUser(null); // 관계 해제
     burnCalorieRepository.delete(burnCalorie);
   }
+
 }
