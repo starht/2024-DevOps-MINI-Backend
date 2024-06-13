@@ -1,4 +1,4 @@
-package com.example.minibackend.dto;
+package com.example.minibackend.dto.FavoriteExercise;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

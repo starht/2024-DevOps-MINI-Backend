@@ -1,6 +1,6 @@
 package com.example.minibackend.controller;
 
-import com.example.minibackend.dto.RecommendFoodDTO;
+import com.example.minibackend.dto.RecommendFood.RecommendFoodDTO;
 import com.example.minibackend.entity.RecommendFood;
 import com.example.minibackend.service.RecommendFoodService;
 import lombok.RequiredArgsConstructor;

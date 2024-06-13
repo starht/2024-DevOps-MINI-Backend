@@ -1,6 +1,6 @@
 package com.example.minibackend.controller;
 
-import com.example.minibackend.dto.IntakeCalorieDTO;
+import com.example.minibackend.dto.IntakeCalorie.IntakeCalorieDTO;
 import com.example.minibackend.entity.IntakeCalorie;
 import com.example.minibackend.entity.User;
 import com.example.minibackend.service.IntakeCalorieService;
@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController

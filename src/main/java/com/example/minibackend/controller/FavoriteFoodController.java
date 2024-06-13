@@ -1,7 +1,7 @@
 package com.example.minibackend.controller;
 
-import com.example.minibackend.dto.FavoriteFoodCreateDTO;
-import com.example.minibackend.dto.FavoriteFoodDTO;
+import com.example.minibackend.dto.FavoriteFood.FavoriteFoodCreateDTO;
+import com.example.minibackend.dto.FavoriteFood.FavoriteFoodDTO;
 import com.example.minibackend.entity.FavoriteFood;
 import com.example.minibackend.entity.RecommendFood;
 import com.example.minibackend.entity.User;

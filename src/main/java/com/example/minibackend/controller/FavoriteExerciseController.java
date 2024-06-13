@@ -1,7 +1,7 @@
 package com.example.minibackend.controller;
 
-import com.example.minibackend.dto.FavoriteExerciseCreateDTO;
-import com.example.minibackend.dto.FavoriteExerciseDTO;
+import com.example.minibackend.dto.FavoriteExercise.FavoriteExerciseCreateDTO;
+import com.example.minibackend.dto.FavoriteExercise.FavoriteExerciseDTO;
 import com.example.minibackend.entity.FavoriteExercise;
 import com.example.minibackend.entity.RecommendExercise;
 import com.example.minibackend.entity.User;

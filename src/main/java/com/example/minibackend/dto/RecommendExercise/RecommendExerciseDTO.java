@@ -1,4 +1,4 @@
-package com.example.minibackend.dto;
+package com.example.minibackend.dto.RecommendExercise;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,9 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RecommendFoodDTO {
-  private int foodListId;
-  private String foodName;
+public class RecommendExerciseDTO {
+  private int exerciseListId;
+  private String exerciseName;
   private float kcal;
+  private String youtubeId;
   private String picture;
 }

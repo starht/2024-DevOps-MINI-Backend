@@ -1,6 +1,6 @@
 package com.example.minibackend.controller;
 
-import com.example.minibackend.dto.CalorieDTO;
+import com.example.minibackend.dto.Calorie.CalorieDTO;
 import com.example.minibackend.entity.Calorie;
 import com.example.minibackend.service.CalorieService;
 import lombok.RequiredArgsConstructor;

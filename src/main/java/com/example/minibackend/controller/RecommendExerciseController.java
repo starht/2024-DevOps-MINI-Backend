@@ -1,6 +1,6 @@
 package com.example.minibackend.controller;
 
-import com.example.minibackend.dto.RecommendExerciseDTO;
+import com.example.minibackend.dto.RecommendExercise.RecommendExerciseDTO;
 import com.example.minibackend.entity.RecommendExercise;
 import com.example.minibackend.service.RecommendExerciseService;
 import org.springframework.beans.factory.annotation.Autowired;

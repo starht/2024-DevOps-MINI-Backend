@@ -1,6 +1,6 @@
 package com.example.minibackend.service;
 
-import com.example.minibackend.dto.CalorieDTO;
+import com.example.minibackend.dto.Calorie.CalorieDTO;
 import com.example.minibackend.entity.Calorie;
 import com.example.minibackend.entity.User;
 import com.example.minibackend.repository.CalorieRepository;

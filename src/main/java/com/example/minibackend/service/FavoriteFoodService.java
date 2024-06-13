@@ -1,7 +1,5 @@
 package com.example.minibackend.service;
 
-import com.example.minibackend.dto.FavoriteFoodCreateDTO;
-import com.example.minibackend.dto.FavoriteFoodDTO;
 import com.example.minibackend.entity.FavoriteFood;
 import com.example.minibackend.entity.User;
 import com.example.minibackend.repository.FavoriteFoodRepository;

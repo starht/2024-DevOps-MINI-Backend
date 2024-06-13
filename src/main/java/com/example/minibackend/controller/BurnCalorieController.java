@@ -1,15 +1,13 @@
 package com.example.minibackend.controller;
 
-import com.example.minibackend.dto.BurnCalorieDTO;
+import com.example.minibackend.dto.BurnCalorie.BurnCalorieDTO;
 import com.example.minibackend.entity.BurnCalorie;
 import com.example.minibackend.entity.User;
 import com.example.minibackend.service.BurnCalorieService;
 import com.example.minibackend.service.UserService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController

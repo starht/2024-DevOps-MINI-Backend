@@ -1,8 +1,7 @@
 package com.example.minibackend.service;
 
-import com.example.minibackend.dto.RecommendExerciseDTO;
+import com.example.minibackend.dto.RecommendExercise.RecommendExerciseDTO;
 import com.example.minibackend.entity.RecommendExercise;
-import com.example.minibackend.entity.RecommendFood;
 import com.example.minibackend.repository.RecommendExerciseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

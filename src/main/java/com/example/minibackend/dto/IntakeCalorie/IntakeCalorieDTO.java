@@ -1,4 +1,4 @@
-package com.example.minibackend.dto;
+package com.example.minibackend.dto.IntakeCalorie;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
