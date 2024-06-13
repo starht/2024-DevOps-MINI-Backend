@@ -21,7 +21,11 @@ public class CalorieService {
   private final UserRepository userRepository;
 
   public List<Calorie> getAllCalories() {
-    return calorieRepository.findAll();
+    List<Calorie> calories = calorieRepository.findAll();
+    for (Calorie calorie : calories) {
+      Hibernate.initialize(calorie.getUser());
+    }
+    return calories;
   }
 
   public CalorieDTO getCalorieByUser(String userId) {
@@ -35,40 +39,56 @@ public class CalorieService {
     }
   }
 
+  public Optional<Calorie> findById(int calorieId) {
+    Optional<Calorie> calorie = calorieRepository.findById(calorieId);
+    if (calorie.isPresent()) {
+      Hibernate.initialize(calorie.get().getUser());
+    }
+    return calorie;
+  }
+
   @Transactional
-  public Calorie addCalorie(Calorie calorieDTO) {
-    Optional<User> userOptional = userRepository.findByUserId(calorieDTO.getUser().getUserId());
+  public Calorie addCalorie(Calorie calorie) {
+    Optional<User> userOptional = userRepository.findByUserId(calorie.getUser().getUserId());
     if (userOptional.isPresent()) {
-      Calorie calorie = new Calorie(calorieDTO.getId(), userOptional.get(), calorieDTO.getMonthUnit(), calorieDTO.getGoalKg(), calorieDTO.getBmr(), calorieDTO.getAmr(), calorieDTO.getTdee(), calorieDTO.getEatNeeded(), calorieDTO.getWorkoutNeeded());
+      calorie.setUser(userOptional.get());
+      calorie.setMonthUnit(calorie.getMonthUnit());
+      calorie.setGoalKg(calorie.getGoalKg());
+      calorie.setBmr(calorie.getBmr());
+      calorie.setAmr(calorie.getAmr());
+      calorie.setTdee(calorie.getTdee());
+      calorie.setEatNeeded(calorie.getEatNeeded());
+      calorie.setWorkoutNeeded(calorie.getWorkoutNeeded());
       return calorieRepository.save(calorie);
     } else {
-      throw new RuntimeException("사용자를 찾을 수 없습니다: " + calorieDTO.getUser().getUserId());
+      throw new RuntimeException("사용자를 찾을 수 없습니다: " + calorie.getUser().getUserId());
     }
   }
 
   @Transactional
-  public Calorie updateCalorie(Calorie calorieDTO) {
-    Optional<User> userOptional = userRepository.findByUserId(calorieDTO.getUser().getUserId());
-    if (userOptional.isPresent()) {
-      User user = userOptional.get();
-      Optional<Calorie> existingCalorieOptional = calorieRepository.findById(calorieDTO.getId());
-      if (existingCalorieOptional.isPresent()) {
-        Calorie existingCalorie = existingCalorieOptional.get();
-        existingCalorie.setUser(user);
-        existingCalorie.setMonthUnit(calorieDTO.getMonthUnit());
-        existingCalorie.setGoalKg(calorieDTO.getGoalKg());
-        existingCalorie.setBmr(calorieDTO.getBmr());
-        existingCalorie.setAmr(calorieDTO.getAmr());
-        existingCalorie.setTdee(calorieDTO.getTdee());
-        existingCalorie.setEatNeeded(calorieDTO.getEatNeeded());
-        existingCalorie.setWorkoutNeeded(calorieDTO.getWorkoutNeeded());
-        return calorieRepository.save(existingCalorie);
-      } else {
-        throw new RuntimeException("칼로리 정보를 찾을 수 없습니다: " + calorieDTO.getId());
-      }
-    } else {
-      throw new RuntimeException("사용자를 찾을 수 없습니다: " + calorieDTO.getUser().getUserId());
+  public Calorie updateCalorie(Calorie calorie){
+    Calorie existingCalorie = calorieRepository.findById(calorie.getId()).orElse(null);
+
+    if (existingCalorie == null) {
+      throw new RuntimeException("칼로리 정보를 찾을 수 없습니다: " + calorie.getId());
     }
+
+    existingCalorie.setMonthUnit(calorie.getMonthUnit());
+    existingCalorie.setGoalKg(calorie.getGoalKg());
+    existingCalorie.setBmr(calorie.getBmr());
+    existingCalorie.setAmr(calorie.getAmr());
+    existingCalorie.setTdee(calorie.getTdee());
+    existingCalorie.setEatNeeded(calorie.getEatNeeded());
+    existingCalorie.setWorkoutNeeded(calorie.getWorkoutNeeded());
+
+    Optional<User> userOptional = userRepository.findByUserId(calorie.getUser().getUserId());
+    if (userOptional.isPresent()) {
+      existingCalorie.setUser(userOptional.get());
+    } else {
+      throw new RuntimeException("사용자를 찾을 수 없습니다: " + calorie.getUser().getUserId());
+    }
+
+    return calorieRepository.save(existingCalorie);
   }
 
   @Transactional
@@ -76,7 +96,7 @@ public class CalorieService {
     Calorie calorie = calorieRepository.findById(calorieId)
         .orElseThrow(() -> new RuntimeException("칼로리 정보를 찾을 수 없습니다: " + calorieId));
 
-    calorie.setUser(null);
+    calorie.setUser(null); // 관계 해제
     calorieRepository.delete(calorie);
   }
 
