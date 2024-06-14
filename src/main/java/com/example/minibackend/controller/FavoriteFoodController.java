@@ -35,7 +35,7 @@ public class FavoriteFoodController {
         .collect(Collectors.toList());
   }
 
-  @GetMapping("/{userId}")
+  @GetMapping("/info")
   public List<FavoriteFoodDTO> getFavoriteFoodsByUser(@RequestParam("userId") String userId) {
     List<FavoriteFood> favoriteFoods = favoriteFoodService.getFavoriteFoodsByUser(userId);
     return favoriteFoods.stream()
