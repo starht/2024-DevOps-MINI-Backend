@@ -9,6 +9,7 @@ import com.example.minibackend.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,7 +36,7 @@ public class IntakeCalorieController {
         .collect(Collectors.toList());
   }
 
-  @GetMapping("/{userId}")
+  @GetMapping("/info")
   public List<IntakeCalorieDTO> getIntakeCalorieByUser(@RequestParam("userId") String userId) {
     List<IntakeCalorie> intakeCalories = intakeCalorieService.getIntakeCalorieByUser(userId);
     return intakeCalories.stream()
@@ -78,9 +79,11 @@ public class IntakeCalorieController {
   }
 
   @PutMapping("/update")
-  public IntakeCalorieDTO updateIntakeCalorie(@RequestParam("intakeId") int intakeId, @RequestBody IntakeCalorieUpdateDTO intakeCalorieUpdateDTO) {
-    IntakeCalorie intakeCalorie = intakeCalorieService.findById(intakeId)
-        .orElseThrow(() -> new RuntimeException("칼로리 섭취 정보를 찾을 수 없습니다: " + intakeId));
+  public IntakeCalorieDTO updateIntakeCalorie(@RequestParam("userId") String userId,
+                                              @RequestParam("date") LocalDate date,
+                                              @RequestBody IntakeCalorieUpdateDTO intakeCalorieUpdateDTO) {
+    IntakeCalorie intakeCalorie = intakeCalorieService.findByUserIdAndDate(userId, date)
+        .orElseThrow(() -> new RuntimeException("칼로리 섭취 정보를 찾을 수 없습니다: " + userId));
 
     intakeCalorie.setBreakfast(intakeCalorieUpdateDTO.getBreakfast());
     intakeCalorie.setLunch(intakeCalorieUpdateDTO.getLunch());
