@@ -115,5 +115,4 @@ public class BurnCalorieService {
     burnCalorie.setUser(null); // 관계 해제
     burnCalorieRepository.delete(burnCalorie);
   }
-
 }

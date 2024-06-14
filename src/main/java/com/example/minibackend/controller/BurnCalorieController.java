@@ -7,11 +7,11 @@ import com.example.minibackend.entity.User;
 import com.example.minibackend.service.BurnCalorieService;
 import com.example.minibackend.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/burn")
@@ -44,6 +44,12 @@ public class BurnCalorieController {
             burnCalorie.getCalorie()
         ))
         .collect(java.util.stream.Collectors.toList());
+  }
+
+  @GetMapping("/info2")
+  public Optional<BurnCalorie> getBurnCalorieByUserAndDate(@RequestParam("userId") String userId,
+                                                           @RequestParam("date") LocalDate date) {
+    return burnCalorieService.findByUserIdAndDate(userId, date);
   }
 
   @PostMapping("/add")
