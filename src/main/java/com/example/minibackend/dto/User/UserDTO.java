@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserDTO {
   private int id;
-  @NotNull(message = "id를 입력하세야 합니다")
   private String userId;
   private String password;
   private String name;

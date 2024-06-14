@@ -26,7 +26,9 @@ public class UserService {
   }
 
   public User getUserById(int id) {
-    return userRepository.findById(id).get();
+    User user = userRepository.findById(id).
+            orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다: " + id));
+    return user;
   }
 
   public Optional<User> findByUserId(String userId) {
@@ -42,12 +44,8 @@ public class UserService {
 
   @Transactional
   public User updateUser(User user) {
-    User existingUser = userRepository.findById(user.getId()).orElse(null);
-
-    if (existingUser == null) {
-      throw new RuntimeException("사용자를 찾을 수 없습니다: " + user.getId());
-    }
-
+    User existingUser = userRepository.findById(user.getId())
+            .orElseThrow(()-> new RuntimeException("사용자를 찾을 수 없습니다: " + user.getId()));
     existingUser.setBmi(user.getBmi());
 
     return userRepository.save(existingUser);
