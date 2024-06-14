@@ -28,7 +28,7 @@ public class APIExceptionController {
         return new ErrorResult(code, ex.getMessage());
     }
 
-    @ResponseStatus
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     public ErrorResult handleException(Exception ex) {
         String code = "unknown error";
