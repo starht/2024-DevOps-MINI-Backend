@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -50,6 +51,12 @@ public class IntakeCalorieController {
             intakeCalorie.getSnack()
             ))
         .collect(Collectors.toList());
+  }
+
+  @GetMapping("/info2")
+  public Optional<IntakeCalorie> getIntakeCalorieByUserAndDate(@RequestParam("userId") String userId,
+                                                               @RequestParam("date") LocalDate date) {
+    return intakeCalorieService.findByUserIdAndDate(userId, date);
   }
 
   @PostMapping("/add")
