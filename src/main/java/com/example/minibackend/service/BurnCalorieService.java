@@ -9,6 +9,7 @@ import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,6 +47,32 @@ public class BurnCalorieService {
       Hibernate.initialize(burnCalorie.get().getUser());
     }
     return burnCalorie;
+  }
+
+  public Optional<BurnCalorie> findByUserId(String userId) {
+    Optional<User> byUserId = userRepository.findByUserId(userId);
+    if (byUserId.isPresent()) {
+      Optional<BurnCalorie> burnCalorie = Optional.ofNullable(burnCalorieRepository.findByUser(byUserId.get()));
+      if (burnCalorie.isPresent()) {
+        Hibernate.initialize(burnCalorie.get().getUser());
+      }
+      return burnCalorie;
+    } else {
+      throw new RuntimeException("사용자를 찾을 수 없습니다: " + userId);
+    }
+  }
+
+  public Optional<BurnCalorie> findByUserIdAndDate(String userId, LocalDate date) {
+    Optional<User> byUserId = userRepository.findByUserId(userId);
+    if (byUserId.isPresent()) {
+      Optional<BurnCalorie> burnCalorie = Optional.ofNullable(burnCalorieRepository.findByUserAndDate(byUserId.get(), date));
+      if (burnCalorie.isPresent()) {
+        Hibernate.initialize(burnCalorie.get().getUser());
+      }
+      return burnCalorie;
+    } else {
+      throw new RuntimeException("사용자를 찾을 수 없습니다: " + userId);
+    }
   }
 
   @Transactional
