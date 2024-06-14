@@ -5,7 +5,6 @@ import com.example.minibackend.dto.RecommendExercise.RecommendExerciseUpdateDTO;
 import com.example.minibackend.entity.RecommendExercise;
 import com.example.minibackend.service.RecommendExerciseService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

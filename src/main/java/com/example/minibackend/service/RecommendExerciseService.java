@@ -1,10 +1,8 @@
 package com.example.minibackend.service;
 
-import com.example.minibackend.dto.RecommendExercise.RecommendExerciseDTO;
 import com.example.minibackend.entity.RecommendExercise;
 import com.example.minibackend.repository.RecommendExerciseRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
