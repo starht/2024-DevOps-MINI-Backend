@@ -17,4 +17,11 @@ public class APIExceptionController {
         String message = ex.getBindingResult().getFieldError().getDefaultMessage();
         return new ErrorResult(code, message);
     }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(RuntimeException.class)
+    public ErrorResult handleInternalServerError(RuntimeException ex) {
+        String code = "런타임 에러";
+        return new ErrorResult(code, ex.getLocalizedMessage());
+    }
 }
