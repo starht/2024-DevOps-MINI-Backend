@@ -24,8 +24,8 @@ public class UserController {
     return userService.getAllUsers();
   }
 
-  @GetMapping("/{userId}")
-  public Optional<User> getUser(@PathVariable("userId") String userId) {
+  @GetMapping("/info")
+  public Optional<User> getUser(@RequestParam("userId") String userId) {
     return userService.findByUserId(userId);
   }
 
