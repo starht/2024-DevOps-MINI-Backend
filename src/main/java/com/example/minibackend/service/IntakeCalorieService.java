@@ -78,7 +78,8 @@ public class IntakeCalorieService {
 
   @Transactional
   public IntakeCalorie addIntakeCalorie(IntakeCalorie intakeCalorie) {
-    Optional<User> userOptional = userRepository.findByUserId(intakeCalorie.getUser().getUserId());
+    Optional<User> userOptional = Optional.ofNullable(userRepository.findByUserId(intakeCalorie.getUser().getUserId())
+        .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다: " + intakeCalorie.getUser().getUserId())));
     if (userOptional.isPresent()) {
       intakeCalorie.setUser(userOptional.get());
       intakeCalorie.setBreakfast(intakeCalorie.getBreakfast());
