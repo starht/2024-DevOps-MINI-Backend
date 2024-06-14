@@ -73,8 +73,8 @@ public class CalorieController {
   }
 
   @PutMapping("/update")
-  public CalorieDTO updateCalorie(@RequestParam("calorieId") int calorieId , @RequestBody CalorieUpdateDTO calorieUpdateDTO) {
-    Calorie calorie = calorieService.findById(calorieId)
+  public CalorieDTO updateCalorie(@RequestParam("calorieId") String calorieId , @RequestBody CalorieUpdateDTO calorieUpdateDTO) {
+    Calorie calorie = calorieService.findByUserId(calorieId)
         .orElseThrow(() -> new RuntimeException("칼로리 정보를 찾을 수 없습니다: " + calorieId));
 
     calorie.setMonthUnit(calorieUpdateDTO.getMonthUnit());
