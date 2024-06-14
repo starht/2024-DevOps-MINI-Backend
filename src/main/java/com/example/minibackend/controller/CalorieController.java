@@ -37,7 +37,7 @@ public class CalorieController {
         .collect(java.util.stream.Collectors.toList());
   }
 
-  @GetMapping("/{userId}")
+  @GetMapping("/info")
   public CalorieDTO getCalorieByUser(@RequestParam("userId") String userId) {
     return calorieService.getCalorieByUser(userId);
   }
