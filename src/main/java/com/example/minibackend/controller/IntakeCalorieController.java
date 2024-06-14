@@ -6,7 +6,9 @@ import com.example.minibackend.entity.IntakeCalorie;
 import com.example.minibackend.entity.User;
 import com.example.minibackend.service.IntakeCalorieService;
 import com.example.minibackend.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +17,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/intake")
 @RequiredArgsConstructor
+@Validated
 public class IntakeCalorieController {
   private final IntakeCalorieService intakeCalorieService;
   private final UserService userService;
@@ -52,7 +55,7 @@ public class IntakeCalorieController {
   }
 
   @PostMapping("/add")
-  public IntakeCalorieDTO addIntakeCalorie(@RequestBody IntakeCalorieDTO intakeCalorieDTO) {
+  public IntakeCalorieDTO addIntakeCalorie(@Valid @RequestBody IntakeCalorieDTO intakeCalorieDTO) {
     User user = userService.findByUserId(intakeCalorieDTO.getUserId())
         .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다: " + intakeCalorieDTO.getUserId()));
 
@@ -78,7 +81,7 @@ public class IntakeCalorieController {
   }
 
   @PutMapping("/update")
-  public IntakeCalorieDTO updateIntakeCalorie(@RequestParam("intakeId") int intakeId, @RequestBody IntakeCalorieUpdateDTO intakeCalorieUpdateDTO) {
+  public IntakeCalorieDTO updateIntakeCalorie(@RequestParam("intakeId") int intakeId,@Valid @RequestBody IntakeCalorieUpdateDTO intakeCalorieUpdateDTO) {
     IntakeCalorie intakeCalorie = intakeCalorieService.findById(intakeId)
         .orElseThrow(() -> new RuntimeException("칼로리 섭취 정보를 찾을 수 없습니다: " + intakeId));
 

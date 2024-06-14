@@ -4,7 +4,9 @@ import com.example.minibackend.dto.User.UserDTO;
 import com.example.minibackend.dto.User.UserUpdateDTO;
 import com.example.minibackend.entity.User;
 import com.example.minibackend.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,6 +15,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/userinfo")
 @RequiredArgsConstructor
+@Validated
 public class UserController {
   private final UserService userService;
 
@@ -33,7 +36,7 @@ public class UserController {
   }
 
   @PutMapping("/update")
-  public UserDTO updateUser(@RequestParam("id") int id, @RequestBody UserUpdateDTO userUpdateDTO) {
+  public UserDTO updateUser(@RequestParam("id") int id,@Valid @RequestBody UserUpdateDTO userUpdateDTO) {
     User user = userService.getUserById(id);
 
     user.setBmi(userUpdateDTO.getBmi());

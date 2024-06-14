@@ -1,7 +1,6 @@
 package com.example.minibackend.service;
 
 import com.example.minibackend.dto.User.UserDTO;
-import com.example.minibackend.dto.User.UserUpdateDTO;
 import com.example.minibackend.entity.User;
 import com.example.minibackend.repository.*;
 import lombok.RequiredArgsConstructor;
