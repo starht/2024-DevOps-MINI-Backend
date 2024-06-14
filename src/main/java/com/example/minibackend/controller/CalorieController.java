@@ -37,7 +37,7 @@ public class CalorieController {
         .collect(java.util.stream.Collectors.toList());
   }
 
-  @GetMapping("/{userId}")
+  @GetMapping("/info")
   public CalorieDTO getCalorieByUser(@RequestParam("userId") String userId) {
     return calorieService.getCalorieByUser(userId);
   }
@@ -73,9 +73,9 @@ public class CalorieController {
   }
 
   @PutMapping("/update")
-  public CalorieDTO updateCalorie(@RequestParam("calorieId") int calorieId , @RequestBody CalorieUpdateDTO calorieUpdateDTO) {
-    Calorie calorie = calorieService.findById(calorieId)
-        .orElseThrow(() -> new RuntimeException("칼로리 정보를 찾을 수 없습니다: " + calorieId));
+  public CalorieDTO updateCalorie(@RequestParam("userId") String userId , @RequestBody CalorieUpdateDTO calorieUpdateDTO) {
+    Calorie calorie = calorieService.findByUserId(userId)
+        .orElseThrow(() -> new RuntimeException("칼로리 정보를 찾을 수 없습니다: " + userId));
 
     calorie.setMonthUnit(calorieUpdateDTO.getMonthUnit());
     calorie.setGoalKg(calorieUpdateDTO.getGoalKg());

@@ -9,6 +9,7 @@ import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,6 +47,33 @@ public class IntakeCalorieService {
       Hibernate.initialize(intakeCalorie.get().getUser());
     }
     return intakeCalorie;
+  }
+
+  public Optional<IntakeCalorie> findByUserId(String userId) {
+    Optional<User> userOpt = userRepository.findByUserId(userId);
+    if (userOpt.isPresent()) {
+      Optional<IntakeCalorie> intakeCalorie = Optional.ofNullable(intakeCalorieRepository.findByUser(userOpt.get()));
+      if (intakeCalorie.isPresent()) {
+        Hibernate.initialize(intakeCalorie.get().getUser());
+      }
+      return intakeCalorie;
+    } else {
+      throw new RuntimeException("사용자를 찾을 수 없습니다: " + userId);
+    }
+  }
+
+  public Optional<IntakeCalorie> findByUserIdAndDate(String userId, LocalDate date) {
+    Optional<User> userOpt = userRepository.findByUserId(userId);
+    if (userOpt.isPresent()) {
+      Optional<IntakeCalorie> intakeCalorie = Optional.ofNullable(intakeCalorieRepository.findByUserAndDate(userOpt.get(), date));
+      if (intakeCalorie.isPresent()) {
+        Hibernate.initialize(intakeCalorie.get().getUser());
+      }
+      return intakeCalorie;
+    } else {
+      throw new RuntimeException("사용자를 찾을 수 없습니다: " + userId);
+    }
+
   }
 
   @Transactional
@@ -94,4 +122,5 @@ public class IntakeCalorieService {
     intakeCalorie.setUser(null);  // 관계 해제
     intakeCalorieRepository.delete(intakeCalorie);
   }
+
 }

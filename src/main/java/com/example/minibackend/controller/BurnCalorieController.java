@@ -9,8 +9,10 @@ import com.example.minibackend.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -34,7 +36,7 @@ public class BurnCalorieController {
         .collect(java.util.stream.Collectors.toList());
   }
 
-  @GetMapping("/{userId}")
+  @GetMapping("/info")
   public List<BurnCalorieDTO> getBurnCalorieByUser(@RequestParam("userId") String userId) {
     List<BurnCalorie> burnCalories = burnCalorieService.getBurnCalorieByUser(userId);
     return burnCalories.stream()
@@ -68,9 +70,11 @@ public class BurnCalorieController {
   }
 
   @PutMapping("/update")
-  public BurnCalorieDTO updateBurnCalorie(@RequestParam("burnId") int burnId,@Valid @RequestBody BurnCalorieUpdateDTO burnCalorieUpdateDTO) {
-    BurnCalorie burnCalorie = burnCalorieService.findById(burnId)
-        .orElseThrow(() -> new RuntimeException("칼로리 소모 정보를 찾을 수 없습니다: " + burnId));
+  public BurnCalorieDTO updateBurnCalorie(@RequestParam("userId") String userId,
+                                          @RequestParam("date") LocalDate date,
+                                          @RequestBody BurnCalorieUpdateDTO burnCalorieUpdateDTO) {
+    BurnCalorie burnCalorie = burnCalorieService.findByUserIdAndDate(userId, date)
+        .orElseThrow(() -> new RuntimeException("칼로리 소모 정보를 찾을 수 없습니다: " + userId));
 
     burnCalorie.setCalorie(burnCalorieUpdateDTO.getCalorie());
     BurnCalorie updatedBurnCalorie = burnCalorieService.updateBurnCalorie(burnCalorie);

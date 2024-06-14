@@ -47,6 +47,19 @@ public class CalorieService {
     return calorie;
   }
 
+  public Optional<Calorie> findByUserId(String userId) {
+    Optional<User> userOptional = userRepository.findByUserId(userId);
+    if (userOptional.isPresent()) {
+      Optional<Calorie> calorie = Optional.ofNullable(calorieRepository.findByUser(userOptional.get()));
+      if (calorie.isPresent()) {
+        Hibernate.initialize(calorie.get().getUser());
+      }
+      return calorie;
+    } else {
+      throw new RuntimeException("사용자를 찾을 수 없습니다: " + userId);
+    }
+  }
+
   @Transactional
   public Calorie addCalorie(Calorie calorie) {
     Optional<User> userOptional = userRepository.findByUserId(calorie.getUser().getUserId());
