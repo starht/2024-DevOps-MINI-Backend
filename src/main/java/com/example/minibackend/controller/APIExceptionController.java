@@ -25,6 +25,13 @@ public class APIExceptionController {
         return new ErrorResult(code, ex.getMessage());
     }
 
+    @ResponseStatus
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ErrorResult handleIllegalArgument(IllegalArgumentException ex) {
+        String code = "사용자 중복 에러";
+        return new ErrorResult(code, ex.getMessage());
+    }
+
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     public ErrorResult handleException(Exception ex) {

@@ -38,6 +38,12 @@ public class UserService {
 
   @Transactional
   public User addUser(UserDTO userDTO) {
+    if (userRepository.existsByUserId(userDTO.getUserId())){
+      throw new IllegalArgumentException("사용자 ID가 이미 존재합니다 " + userDTO.getUserId());
+    }
+    if (userRepository.existsByName(userDTO.getName())){
+      throw new IllegalArgumentException("사용자 이름이 이미 존재합니다 " + userDTO.getName());
+    }
     User user = new User(0, userDTO.getUserId(), userDTO.getPassword(), userDTO.getName(), userDTO.getBmi());
     return userRepository.save(user);
   }
