@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BurnCalorieUpdateDTO {
-  @NotNull(message = "calorie를 입력해야 합니다")
   @Min(value = 0,message = "caloire는 0보다 크거나 같아야합니다")
   private int calorie;
 }

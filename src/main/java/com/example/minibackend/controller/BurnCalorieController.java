@@ -9,7 +9,6 @@ import com.example.minibackend.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -72,7 +71,7 @@ public class BurnCalorieController {
   @PutMapping("/update")
   public BurnCalorieDTO updateBurnCalorie(@RequestParam("userId") String userId,
                                           @RequestParam("date") LocalDate date,
-                                          @RequestBody BurnCalorieUpdateDTO burnCalorieUpdateDTO) {
+                                          @Valid @RequestBody BurnCalorieUpdateDTO burnCalorieUpdateDTO) {
     BurnCalorie burnCalorie = burnCalorieService.findByUserIdAndDate(userId, date)
         .orElseThrow(() -> new RuntimeException("칼로리 소모 정보를 찾을 수 없습니다: " + userId));
 

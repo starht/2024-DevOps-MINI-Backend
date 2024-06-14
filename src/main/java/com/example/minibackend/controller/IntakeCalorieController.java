@@ -84,7 +84,7 @@ public class IntakeCalorieController {
   @PutMapping("/update")
   public IntakeCalorieDTO updateIntakeCalorie(@RequestParam("userId") String userId,
                                               @RequestParam("date") LocalDate date,
-                                              @RequestBody IntakeCalorieUpdateDTO intakeCalorieUpdateDTO) {
+                                              @Valid @RequestBody IntakeCalorieUpdateDTO intakeCalorieUpdateDTO) {
     IntakeCalorie intakeCalorie = intakeCalorieService.findByUserIdAndDate(userId, date)
         .orElseThrow(() -> new RuntimeException("칼로리 섭취 정보를 찾을 수 없습니다: " + userId));
 
