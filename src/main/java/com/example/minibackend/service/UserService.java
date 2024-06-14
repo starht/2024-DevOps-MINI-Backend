@@ -1,7 +1,6 @@
 package com.example.minibackend.service;
 
 import com.example.minibackend.dto.User.UserDTO;
-import com.example.minibackend.dto.User.UserUpdateDTO;
 import com.example.minibackend.entity.User;
 import com.example.minibackend.repository.*;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +30,7 @@ public class UserService {
   }
 
   public Optional<User> findByUserId(String userId) {
+    userRepository.findByUserId(userId).orElseThrow(()-> new RuntimeException("사용자를 찾을 수 없습니다: " + userId));
     return userRepository.findByUserId(userId);
   }
 

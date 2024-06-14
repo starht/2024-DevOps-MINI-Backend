@@ -6,7 +6,9 @@ import com.example.minibackend.entity.Calorie;
 import com.example.minibackend.entity.User;
 import com.example.minibackend.service.CalorieService;
 import com.example.minibackend.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +17,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/calories")
 @RequiredArgsConstructor
+@Validated
 public class CalorieController {
   private final CalorieService calorieService;
   private final UserService userService;
@@ -43,7 +46,7 @@ public class CalorieController {
   }
 
   @PostMapping("/add")
-  public CalorieDTO addCalorie(@RequestBody CalorieDTO calorieDTO) {
+  public CalorieDTO addCalorie(@Valid @RequestBody CalorieDTO calorieDTO) {
     User user = userService.findByUserId(calorieDTO.getUserId())
         .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다: " + calorieDTO.getUserId()));
 
@@ -73,7 +76,7 @@ public class CalorieController {
   }
 
   @PutMapping("/update")
-  public CalorieDTO updateCalorie(@RequestParam("userId") String userId , @RequestBody CalorieUpdateDTO calorieUpdateDTO) {
+  public CalorieDTO updateCalorie(@RequestParam("userId") String userId ,@Valid @RequestBody CalorieUpdateDTO calorieUpdateDTO) {
     Calorie calorie = calorieService.findByUserId(userId)
         .orElseThrow(() -> new RuntimeException("칼로리 정보를 찾을 수 없습니다: " + userId));
 
