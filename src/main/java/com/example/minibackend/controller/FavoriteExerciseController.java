@@ -34,7 +34,7 @@ public class FavoriteExerciseController {
         .collect(Collectors.toList());
   }
 
-  @GetMapping("/{userId}")
+  @GetMapping("/info")
   public List<FavoriteExerciseDTO> getFavoriteExercisesByUser(@RequestParam("userId") String userId) {
     List<FavoriteExercise> favoriteExercises = favoriteExerciseService.getFavoriteExercisesByUser(userId);
     return favoriteExercises.stream()
