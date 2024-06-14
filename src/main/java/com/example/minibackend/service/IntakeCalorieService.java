@@ -108,7 +108,7 @@ public class IntakeCalorieService {
     if (userOpt.isPresent()) {
       existingIntakeCalorie.setUser(userOpt.get());
     } else {
-      throw new RuntimeException("사용자를 찾을 수 없습니다: " + intakeCalorie.getUser().getUserId());
+      throw new RuntimeException("사용자를 찾을 수 없습니다: 사용자번호" + intakeCalorie.getUser().getUserId());
     }
 
     return intakeCalorieRepository.save(existingIntakeCalorie);

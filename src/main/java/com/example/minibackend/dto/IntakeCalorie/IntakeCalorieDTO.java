@@ -1,6 +1,7 @@
 package com.example.minibackend.dto.IntakeCalorie;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,12 +17,12 @@ public class IntakeCalorieDTO {
   private String userId;
   @PastOrPresent(message = "현재날짜 또는 과거 날짜만 입력 가능합니다")
   private LocalDate date;
-  @NotBlank(message = "내용을 입력해야 합니다")
+  @NotNull(message = "내용을 입력해야 합니다")
   private int breakfast;
-  @NotBlank(message = "내용을 입력해야 합니다")
+  @NotNull(message = "내용을 입력해야 합니다")
   private int lunch;
-  @NotBlank(message = "내용을 입력해야 합니다")
+  @NotNull(message = "내용을 입력해야 합니다")
   private int dinner;
-  @NotBlank(message = "내용을 입력해야 합니다")
+  @NotNull(message = "내용을 입력해야 합니다")
   private int snack;
 }
